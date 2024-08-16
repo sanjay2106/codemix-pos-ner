@@ -3,7 +3,7 @@ import torch
 
 import pytorch_lightning as pl 
 from pytorch_lightning.loggers import TensorBoardLogger, WandbLogger
-from pytorch_lightning.utilities.seed import seed_everything
+from pytorch_lightning import seed_everything
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.callbacks import ModelCheckpoint
 
@@ -67,10 +67,7 @@ def main(args):
     )
 
     # Init Model 
-    freeze = False
-    if args.freeze == "freeze": 
-        freeze=True
-
+    freeze = args.freeze == "freeze"
     print(freeze)
 
     model = BaseLine(
@@ -124,7 +121,7 @@ def main(args):
         logger=logger,
         log_every_n_steps=20,
         callbacks=[es, cp], 
-        deterministic=True,        # Get same results on differnt GPUs ( hopefully )
+        deterministic=True,        # Get same results on different GPUs (hopefully)
     )
 
     # Runs
@@ -148,9 +145,7 @@ def kcrossfold(args):
     )
 
     # Init Model
-    freeze = False
-    if args.freeze == "freeze": 
-        freeze=True
+    freeze = args.freeze == "freeze"
     print(freeze)
 
     model = BaseLine(
@@ -167,7 +162,6 @@ def kcrossfold(args):
         dropout_rate=args.dropout,
         freeze=freeze
     )
-
 
     run_name = f"fold-{args.k}-{args.run_name}"
     logger = TensorBoardLogger(
@@ -196,7 +190,7 @@ def kcrossfold(args):
         logger=logger,
         log_every_n_steps=20,
         callbacks=[es], 
-        deterministic=True,        # Get same results on differnt GPUs ( hopefully )
+        deterministic=True,        # Get same results on different GPUs (hopefully)
     )
 
     # Runs
@@ -220,11 +214,7 @@ def multidataset(args):
         'data/GLUECoS/LID/Romanized/validation.txt')
     ]
     
-    isFreezed = args.freeze
-    if isFreezed is None:
-        isFreezed = 'F'
-    else:
-        isFreezed = 'U'    # Unfreezed
+    isFreezed = 'U' if args.freeze else 'F'
     
     run_name = args.run_name
     if run_name is None:
@@ -259,9 +249,8 @@ def multidataset(args):
         log_every_n_steps=10,
         logger=logger,
         max_epochs=args.epochs,
-        gpus=args.gpus,
-        # gradient_clip_val=0.1,
-        # gradient_clip_algorithm="value"
+        accelerator="gpu",
+        devices=args.gpus,
     )
 
     trainer.fit(model, datamodule=dm)
