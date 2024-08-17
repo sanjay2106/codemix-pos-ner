@@ -56,7 +56,7 @@ GLC_NER_LABEL2ID = {
     "I-Loc": 6
 }
 
-GLC_LID_LABEL2ID = {
+GLC_POS_LABEL2ID = {
     "NOUN": 0,      # Common nouns
     "PRON": 1,      # Pronouns
     "VERB": 2,      # Verbs
