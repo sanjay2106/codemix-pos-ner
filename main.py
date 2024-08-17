@@ -31,7 +31,7 @@ from config import (
     NUM_WORKERS,
     AVAIL_GPUS,
     GLC_NER_LABEL2ID,
-    GLC_LID_LABEL2ID
+    GLC_POS_LABEL2ID
 )
 
 def test_dm(args):
@@ -76,11 +76,11 @@ def main(args):
         padding=args.padding, 
         learning_rate=args.lr, 
         ner_learning_rate=args.ner_lr, 
-        lid_learning_rate=args.lid_lr, 
+        pos_learning_rate=args.pos_lr, 
         warm_restart_epochs=args.warm_restart_epochs,
         weight_decay=args.weight_decay,
         ner_wd=args.ner_wd,
-        lid_wd=args.lid_wd,
+        pos_wd=args.pos_wd,
         dropout_rate=args.dropout,
         freeze=freeze
     )
@@ -154,11 +154,11 @@ def kcrossfold(args):
         padding=args.padding, 
         learning_rate=args.lr, 
         ner_learning_rate=args.ner_lr, 
-        lid_learning_rate=args.lid_lr, 
+        pos_learning_rate=args.pos_lr, 
         warm_restart_epochs=args.warm_restart_epochs,
         weight_decay=args.weight_decay,
         ner_wd=args.ner_wd,
-        lid_wd=args.lid_wd,
+        pos_wd=args.pos_wd,
         dropout_rate=args.dropout,
         freeze=freeze
     )
@@ -201,17 +201,17 @@ def multidataset(args):
     seed_everything(42)
     
     # important to keep the order of label2ids, tasknames and tasks same.
-    label2ids = [ GLC_NER_LABEL2ID, GLC_LID_LABEL2ID ]
-    tasknames = ['NER', 'LID']
+    label2ids = [ GLC_NER_LABEL2ID, GLC_POS_LABEL2ID ]
+    tasknames = ['NER', 'POS']
     tasks = [
     Task(GLC_NER_LABEL2ID,
         'NER',
         'data/GLUECoS/NER/Romanized/train.txt',
         'data/GLUECoS/NER/Romanized/validation.txt'),
-    Task(GLC_LID_LABEL2ID,
-        'LID',
-        'data/GLUECoS/LID/Romanized/train.txt',
-        'data/GLUECoS/LID/Romanized/validation.txt')
+    Task(GLC_POS_LABEL2ID,
+        'POS',
+        'data/GLUECoS/POS/Romanized/train.txt',
+        'data/GLUECoS/POS/Romanized/validation.txt')
     ]
     
     isFreezed = 'U' if args.freeze else 'F'
@@ -262,10 +262,10 @@ if __name__=="__main__":
     parser.add_argument("--epochs", type=int, default=MAX_EPOCHS, help="Set max epochs")
     parser.add_argument("--lr", type=float, default=LEARNING_RATE, help="Set Learning Rate")
     parser.add_argument("--ner_lr", type=float, default=LEARNING_RATE, help="Set task learning rate")
-    parser.add_argument("--lid_lr", type=float, default=LEARNING_RATE, help="Set task learning rate")
+    parser.add_argument("--pos_lr", type=float, default=LEARNING_RATE, help="Set task learning rate")
     parser.add_argument("--weight_decay", type=float, default=WEIGHT_DECAY, help="Set Weight Decay")
     parser.add_argument("--ner_wd", type=float, default=WEIGHT_DECAY, help="Set weight decay")
-    parser.add_argument("--lid_wd", type=float, default=WEIGHT_DECAY, help="Set weight decay")
+    parser.add_argument("--pos_wd", type=float, default=WEIGHT_DECAY, help="Set weight decay")
     parser.add_argument("--dropout", type=float, default=DROPOUT_RATE, help="Set dropout rate")
     parser.add_argument("--max_seq_len", type=int, default=MAX_SEQUENCE_LENGTH, help="Set max seq length")
     parser.add_argument("--padding", type=str, default=PADDING, help="Set padding style")
