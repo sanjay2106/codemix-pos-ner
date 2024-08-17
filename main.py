@@ -101,15 +101,15 @@ def main(args):
         )
 
     es = EarlyStopping(
-        monitor="f1/val-ner", 
+        monitor="f1/val-pos", 
         mode='max',
         patience=5,
     )
 
     cp = ModelCheckpoint(
         dirpath=args.checkpoint_path,
-        filename=f"{args.base_model}" + "-{f1/val-ner: .4f}",
-        monitor='f1/val-ner',
+        filename=f"{args.base_model}" + "-{f1/val-pos: .4f}",
+        monitor='f1/val-pos',
         save_top_k=3,
         mode='max',
     )
@@ -178,7 +178,7 @@ def kcrossfold(args):
         )   
     
     es = EarlyStopping(
-        monitor="f1/val-ner", 
+        monitor="f1/val-pos", 
         mode='max',
         patience=5,
     )
