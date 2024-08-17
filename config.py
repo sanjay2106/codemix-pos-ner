@@ -46,14 +46,26 @@ LID2ID = {
     "rest": 2
 }
 
-GLC_NER_LABEL2ID = {
-    "Other": 0,
-    "B-Per": 1,
-    "I-Per": 2,
-    "B-Org": 3,
-    "I-Org": 4,
-    "B-Loc": 5,
-    "I-Loc": 6
+GLC_POS_LABEL2ID = {
+    "NOUN": 0,      # Common nouns
+    "PRON": 1,      # Pronouns
+    "VERB": 2,      # Verbs
+    "ADJ": 3,       # Adjectives
+    "ADV": 4,       # Adverbs
+    "ADP": 5,       # Adpositions (prepositions, postpositions)
+    "DET": 6,       # Determiners
+    "AUX": 7,       # Auxiliary verbs
+    "CCONJ": 8,     # Coordinating conjunctions
+    "SCONJ": 9,     # Subordinating conjunctions
+    "PART": 10,     # Particles
+    "NUM": 11,      # Numerals
+    "PUNCT": 12,    # Punctuation marks
+    "SYM": 13,      # Symbols
+    "INTJ": 14,     # Interjections
+    "X": 15,        # Other categories, including foreign words
+    "EN": 16,       # English token tag
+    "HI": 17,       # Hindi token tag
+    "OTHER": 18     # For tokens that don't fit into the above categories
 }
 
 GLC_LID_LABEL2ID = {
