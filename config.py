@@ -57,10 +57,27 @@ GLC_NER_LABEL2ID = {
 }
 
 GLC_LID_LABEL2ID = {
-    "EN": 0,
-    "HI": 1,
-    "OTHER": 2
+    "NOUN": 0,      # Common nouns
+    "PRON": 1,      # Pronouns
+    "VERB": 2,      # Verbs
+    "ADJ": 3,       # Adjectives
+    "ADV": 4,       # Adverbs
+    "ADP": 5,       # Adpositions (prepositions, postpositions)
+    "DET": 6,       # Determiners
+    "AUX": 7,       # Auxiliary verbs
+    "CCONJ": 8,     # Coordinating conjunctions
+    "SCONJ": 9,     # Subordinating conjunctions
+    "PART": 10,     # Particles
+    "NUM": 11,      # Numerals
+    "PUNCT": 12,    # Punctuation marks
+    "SYM": 13,      # Symbols
+    "INTJ": 14,     # Interjections
+    "X": 15,        # Other categories, including foreign words
+    "EN": 16,       # English token tag
+    "HI": 17,       # Hindi token tag
+    "OTHER": 18     # For tokens that don't fit into the above categories
 }
+
 
 K_CROSSFOLD_VALIDATION_SPLITS = 10
 
